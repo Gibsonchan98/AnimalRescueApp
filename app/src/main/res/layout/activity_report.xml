@@ -1,19 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Layout of report activity begins -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/charcoal"
     tools:context=".ReportActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="252dp"
-        android:layout_height="154dp"
-        android:layout_marginTop="188dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- fragment used to validate user location input-->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/autocomplete_fragmentLocation"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="319dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/platinum"
+        android:background="@color/chestnut" />
+
+    <!--text for user to input animal species type-->
+    <TextView
+        android:id="@+id/animalTypeText"
+        android:layout_width="319dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/species_input"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:textColor="@color/platinum"
+        android:background="@color/chestnut"
+        />
+
+    <RadioButton
+        android:id="@+id/unknownRadioButton"
+        android:layout_width="319dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/unknown_species"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:textColor="@color/platinum"
+        android:background="@color/chestnut"/>
+
+    <!-- Group of radio buttons starts-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="20dp">
+
+        <RadioButton
+            android:id="@+id/safeRadioButton"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:background="@color/chestnut"
+            android:gravity="center"
+            android:text="@string/safe"
+            android:textAllCaps="true"
+            android:textColor="@color/platinum" />
+
+        <RadioButton
+            android:id="@+id/InjuredRadioButton"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:background="@color/chestnut"
+            android:gravity="center"
+            android:text="@string/injured"
+            android:textAllCaps="true"
+            android:textColor="@color/platinum" />
+    </LinearLayout>
+    <!-- Group of radio buttons ends-->
+
+    <!--submit Button-->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/submitButton"
+        android:layout_width="319dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/chestnut"
+        android:gravity="center"
+        android:text="@string/submit"
+        android:textAllCaps="true"
+        android:textColor="@color/platinum"/>
+
+    <!--add more information to the report Button-->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addInfoButton"
+        android:layout_width="319dp"
+        android:layout_height="48dp"
+        android:background="@color/chestnut"
+        android:gravity="center"
+        android:text="@string/addMore"
+        android:textAllCaps="true"
+        android:textColor="@color/platinum"/>
+
+
+
+</LinearLayout>

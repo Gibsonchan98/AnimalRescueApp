@@ -8,14 +8,27 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+//import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+
+import java.util.Arrays;
 
 public class ReportActivity extends AppCompatActivity {
 
@@ -29,79 +42,44 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-    }
+        //TODO: If user selects location persmission allowed, then use current location else allow input
 
-    /*Function checks if user has permission granted or not when app starts*/
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //if location is already granted, then get last location
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            getLastLocation();
-        } else { //if it is not, then ask for user to turn on location 
-            askLocationPermission();
-        }
-    }
+        //initilize SDK
+        Places.initialize(getApplicationContext(), "AIzaSyBbwKEN2xO7HmUzNz3hGBMMXmkZvNXPrPY");
 
-    private void getLastLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
-        locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {
+        //Create a new Places client instance
+        PlacesClient placesClient = Places.createClient(this);
+
+        //Intialize the autocomplete fragment
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragmentLocation);
+
+        autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS);
+
+        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
+                new LatLng(-33.8,151),
+                new LatLng(-33.8,151)
+        ));
+
+        autocompleteFragment.setCountries("IN");
+
+        //Specify the types of place data to return
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+
+        //Handles event when user taps one of the predictions
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
-            public void onSuccess(Location location) {
-                if (location != null){
-                    //We have location
-                    Log.d(TAG, "onSuccess:" + location.toString());
-                    Log.d(TAG, "onSuccess:" + location.getLatitude());
-                    Log.d(TAG, "onSuccess:" + location.getLongitude());
-                } else {
-                    Log.d(TAG, "onSuccess: Location was null");
-                }
+            public void onError(@NonNull Status status) {
+                //TODO: Handle the error
+                Log.i(TAG, "An error occured:" + status);
+            }
+
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+               //TODO: Get info about the selected place
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
             }
         });
-
-        locationTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e(TAG, "onFailure: " + e.getLocalizedMessage());
-            }
-        });
-
-    }
-
-    private void askLocationPermission(){
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.ACCESS_FINE_LOCATION)){
-                Log.d(TAG, "askLocationPermission: you should show an alert dialog");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LOCATION_REQUEST_CODE);
-            } else{
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LOCATION_REQUEST_CODE);
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == this.LOCATION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //permission granted
-                getLastLocation();
-            } else {
-                //permission not granted
-            }
-        }
     }
 
 
