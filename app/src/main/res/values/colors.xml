@@ -7,7 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="base_color">#00AEB1</color>
-    <color name="mint_cream">#EEF4ED</color>
-
+    <color name="opal">#99C5C4</color>
+    <color name="platinum">#E7E9E7</color>
+    <color name="charcoal">#203E4A</color>
+    <color name="chestnut">#9F5130</color>
+    <color name="cerulean">#9BBCD8</color>
 </resources>
