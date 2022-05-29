@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserLoginActivtiy"
+    android:background="#203E4A">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="-123dp">
+
+        <!-- Form will go inside this form -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/loginTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:fontFamily="@font/montserrat_alternates_medium"
+                android:text="@string/login"
+                android:textColor="@color/platinum"
+                android:textSize="54sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/inputEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/input_bg"
+                android:drawableStart="@drawable/ic_baseline_email_24"
+                android:drawablePadding="15dp"
+                android:ems="10"
+                android:hint="@string/email_or_username"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="20dp"
+                android:paddingTop="13dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="13dp"
+                android:textColor="@color/platinum"
+                android:textColorHint="@color/platinum"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginTextView" />
+
+            <EditText
+                android:id="@+id/inputPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/input_bg"
+                android:drawableStart="@drawable/ic_baseline_security_24"
+                android:drawablePadding="15dp"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingLeft="20dp"
+                android:paddingTop="13dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="13dp"
+                android:textColor="@color/platinum"
+                android:textColorHint="@color/platinum"
+                app:layout_constraintEnd_toEndOf="@+id/inputEmail"
+                app:layout_constraintStart_toStartOf="@+id/inputEmail"
+                app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
+
+            <TextView
+                android:id="@+id/forgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/forgot_password"
+                android:textColor="@color/platinum"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/inputPassword"
+                app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/input_bg"
+                android:text="@string/login"
+                android:textColor="@color/platinum"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/forgotPassword"
+                app:layout_constraintStart_toStartOf="@+id/inputPassword"
+                app:layout_constraintTop_toBottomOf="@+id/forgotPassword"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <TextView
+                android:id="@+id/registerAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/create_new_account"
+                android:textColor="@color/platinum"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/loginButton"
+                app:layout_constraintStart_toStartOf="@+id/loginButton"
+                app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
+            <TextView
+                android:id="@+id/orPlacer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="@string/or"
+                android:textColor="@color/platinum"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerAccount" />
+
+            <View
+                android:id="@+id/viewRight"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="16dp"
+                android:background="@color/platinum"
+                app:layout_constraintBottom_toBottomOf="@+id/orPlacer"
+                app:layout_constraintEnd_toEndOf="@+id/loginButton"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/orPlacer"
+                app:layout_constraintTop_toTopOf="@+id/orPlacer"></View>
+
+            <View
+                android:id="@+id/viewLeft"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/platinum"
+                app:layout_constraintBottom_toBottomOf="@+id/orPlacer"
+                app:layout_constraintEnd_toStartOf="@+id/orPlacer"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/loginButton"
+                app:layout_constraintTop_toTopOf="@+id/orPlacer"></View>
+
+            <ImageView
+                android:id="@+id/facebookBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/facebook_logo"
+                app:layout_constraintBottom_toBottomOf="@+id/googleBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/googleBtn"
+                app:layout_constraintTop_toTopOf="@+id/googleBtn"
+                android:contentDescription="@string/register_using_facebook_account" />
+
+            <ImageView
+                android:id="@+id/googleBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/register_using_google_account"
+                android:src="@drawable/googleg_standard_color_18"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/facebookBtn"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/orPlacer"
+                app:layout_constraintVertical_bias="0.335"
+                tools:ignore="ImageContrastCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

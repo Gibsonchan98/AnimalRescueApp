@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.animalrescueapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AnimalRescueApp"
         tools:targetApi="31">
+        <activity
+            android:name=".UserRegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserLoginActivtiy"
+            android:exported="false" />
         <activity
             android:name=".ReportActivity"
             android:exported="false" />
@@ -31,6 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -1,9 +1,13 @@
 package com.animalrescueapp;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
@@ -25,9 +29,17 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.animalrescueapp.databinding.ActivityMainBinding;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
@@ -38,49 +50,54 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "ReportActivity";
 
+    TextView userRegister;
+    EditText inputEmail, inputPassword;
+    Button loginBtn;
+
+    //validation pattern
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    ProgressDialog progressDialog;
+
+    FirebaseAuth mAuth;
+    FirebaseUser mUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user_login);
 
-        setContentView(R.layout.activity_report);
+        //Initializing values
+        inputEmail=findViewById(R.id.inputEmail);
+        inputPassword=findViewById(R.id.inputPassword);
+        loginBtn=findViewById(R.id.loginButton);
 
-        //initilize SDK
-        Places.initialize(getApplicationContext(), "AIzaSyBbwKEN2xO7HmUzNz3hGBMMXmkZvNXPrPY");
+        progressDialog=new ProgressDialog(this);
+        mAuth=FirebaseAuth.getInstance();
+        mUser=mAuth.getCurrentUser();
 
-        //Create a new Places client instance
-        PlacesClient placesClient = Places.createClient(this);
 
-        //Intialize the autocomplete fragment
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragmentLocation);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS);
-
-        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
-                new LatLng(-33.8,151),
-                new LatLng(-33.8,151)
-        ));
-
-        autocompleteFragment.setCountries("IN");
-
-        //Specify the types of place data to return
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-
-        //Handles event when user taps one of the predictions
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+        //assign value to text view to register Account textview in xml
+        userRegister=findViewById(R.id.registerAccount);
+        //when register is clicked userRegister Activity is called
+        userRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onError(@NonNull Status status) {
-                //TODO: Handle the error
-                Log.i(TAG, "An error occured:" + status);
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,UserRegisterActivity.class));
             }
+        });
 
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPlaceSelected(@NonNull Place place) {
-                //TODO: Get info about the selected place
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+            public void onClick(View v) {
+               // perfomLogin();
             }
         });
 
     }
+
+
+
 
 }
